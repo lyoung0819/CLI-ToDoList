@@ -1,5 +1,4 @@
-# THIS IS THE RETRY: 
-
+# TASK LIST MANAGER: 
 
 
 class Task:
@@ -25,7 +24,7 @@ class TaskList:
         return f"'{task.description}' has been added!"
     
     def remove_task(self, task_id):
-        if task_id in self.task_list:
+        if task_id in self.task_list.keys():
             del self.task_list[task_id]
         return 'Your task has been removed.'
     
@@ -49,29 +48,50 @@ def main():
     4. See all tasks
     5. Quit task manager
           ''')
-    user_inp = input('What would you like to do? (provide the number)')
-    num = int(user_inp)
-    while num != 5:
-        if num == 1:
-            task_id += 1
-            description = input('Enter the task description: ')
-            newTask = Task(task_id, description)
-            all_tasks.add_task(newTask)
-        elif num == 2:
-            task_id = input('What is the ID of the task you\'d like to remove?')
-            all_tasks.remove_task(task_id)
-        elif num == 3:
-            pass
-        elif num == 4:
-            return all_tasks
-        elif num == 5:
+    num = input('What would you like to do? (provide the number)')
+    ok_response = ['1', '2', '3', '4', '5']
+    # change while loop to simpler statement and add num = input inside loop? 
+    while num in ok_response:
+        if num == '5':
             print('You are exiting the task manager. Have a nice day!')
             break
+        elif num == '1':
+            task_id += 1
+            description = input('Enter the task description: ')  
+            newTask = Task(task_id, description)
+            all_tasks.add_task(newTask)
+            print(f"'{newTask.description}' was added successfully.")
+            num = input('What would you like to do? (provide the number)')
+            if num not in ok_response:
+                print('Not a valid answer, please try again.')
+                num = input('What would you like to do? (provide the number)')
+        elif num == '2':
+            task_id = input('What is the ID of the task you\'d like to remove?')
+            all_tasks.remove_task(task_id) # doesn't remove - DEBUG
+            print(f"'{newTask.description}' was removed successfully.")
+            num = input('What would you like to do? (provide the number)')
+            if num not in ok_response:
+                print('Not a valid answer, please try again.')
+                num = input('What would you like to do? (provide the number)')
+        elif num == '3':
+            task_id = input('What is the ID of the task you\'d like to complete?')
+            if task_id == newTask.task_id:
+                newTask.complete_task()
+            print(f"'{newTask.description}' was completed!")
+            num = input('What would you like to do? (provide the number)')
+            if num not in ok_response:
+                print('Not a valid answer, please try again.')
+                num = input('What would you like to do? (provide the number)')
+        elif num == '4':
+            print(all_tasks.task_list)
+            num = input('What would you like to do? (provide the number)')
+            if num not in ok_response:
+                print('Not a valid answer, please try again.')
+                num = input('What would you like to do? (provide the number)')
         else:
             print('Not a valid answer, please try again.')
-            user_inp = input('What would you like to do? (provide the number)')
-
-    
-
+            num = input('What would you like to do? (provide the number)')
 
 main()
+
+# edit the formatting of the tasks 
