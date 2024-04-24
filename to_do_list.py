@@ -3,7 +3,7 @@
 
 class Task:
     def __init__(self, task_id, description):
-        self.task_id = task_id,
+        self.task_id = task_id, # going in as a tuple here? 
         self.description = description 
         self.status = False
 
