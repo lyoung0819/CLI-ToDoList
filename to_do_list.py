@@ -9,33 +9,43 @@ class Task:
 
     def complete_task(self):
         self.status = True
+
+    def __str__(self):
+        return f"Task #{self.task_id}: {self.description}, {self.status}"
+
     
 class TaskList:
     def __init__(self):
-        self.task_list = []
+        self.task_list = [] # list of task objects
+    
+    # def __str__(self):
+    #     return 
     
     def add_task(self, task_id, task):
         new_task = Task(task_id, task)
-        self.task_list.append([new_task.task_id, new_task.description, new_task.status])
+        self.task_list.append([new_task.task_id, new_task.description, new_task.status]) #new_task.task_id, new_task.description, new_task.status
         print("Your task has been added!")
     
-    def remove_task(self, task_id):
-        for lst in self.task_list:
-            if lst[0] == task_id:
-                self.task_list.pop(lst)
+    def remove_task(self, task):
+        print(self.task_list)
+        for arr in self.task_list:
+            if arr[1] == str(task): 
+                self.task_list.remove(arr)
                 print('Your task has been removed.')
-        else:
-            print('No task with that ID was found.')
+            else:
+                print('No task with that description was found.')
     
     def show_tasks(self):
         print('MY TASKS:')
         for lst in self.task_list:
-            print(f"{lst[0]}. {lst[1]} | completed: {lst[2]}")
+            print(lst) # f"{lst[0]}. {lst[1]} | completed: {lst[2]}"
 
-    def complete_task(self, task_id):
-        for lst in self.task_list:
-            if task_id == lst[0]:
-                lst[2] == True
+    def complete_task(self, task):
+        for obj in self.task_list:
+            print(obj)
+            print(type(obj))
+            if obj.description == task:
+                obj.status == True
                 print('Your task has been completed.')
             else:
                 print('Could not find task with that ID')
@@ -65,11 +75,11 @@ def main():
             description = input('Enter the task description: ')  
             my_tasks.add_task(task_id, description)
         elif num == '2':
-            task_id = input('What is the ID of the task you\'d like to remove?') 
-            my_tasks.remove_task(task_id)
+            task = input('What is the description of the task you\'d like to remove?') 
+            my_tasks.remove_task(task)
         elif num == '3':
-            task_id = input('What is the ID of the task you\'d like to complete?')
-            my_tasks.complete_task(task_id)
+            task = input('What task would you like to complete?')
+            my_tasks.complete_task(task)
         elif num == '4':
             my_tasks.show_tasks()
         else:
