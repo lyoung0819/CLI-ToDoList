@@ -42,10 +42,8 @@ class TaskList:
 
     def complete_task(self, task):
         for obj in self.task_list:
-            print(obj)
-            print(type(obj))
-            if obj.description == task:
-                obj.status == True
+            if obj[1] == str(task):
+                obj[2] = True
                 print('Your task has been completed.')
             else:
                 print('Could not find task with that ID')
@@ -75,10 +73,10 @@ def main():
             description = input('Enter the task description: ')  
             my_tasks.add_task(task_id, description)
         elif num == '2':
-            task = input('What is the description of the task you\'d like to remove?') 
+            task = input('What is the description of the task you\'d like to remove? (enter description)') 
             my_tasks.remove_task(task)
         elif num == '3':
-            task = input('What task would you like to complete?')
+            task = input('What task would you like to complete? (enter description)')
             my_tasks.complete_task(task)
         elif num == '4':
             my_tasks.show_tasks()
